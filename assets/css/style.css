@@ -7736,3 +7736,6 @@ html, body, .map-element {
   font-size: 2em; }
 .map-popup .th img {
   width: 100%; }
+
+.gm-style-iw + div img {
+  max-width: none; }
