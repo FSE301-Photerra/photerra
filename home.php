@@ -12,30 +12,25 @@
         </div>
         <div id="bodyContent">
             <div class="row">
-                <a href="#" class="th large-12 columns">
+                <a href="#" class="th small-4 columns">
                     <img src="{{featuredImage.path}}">
                 </a>
-            </div>
-            <div class="row">
-                <a href="#" class="th large-6 columns">
-                    <img src="{{trendingImage.1.path}}">
+                <a href="#" class="th small-4 columns">
+                    <img src="{{trendingImages.0.path}}">
                 </a>
-                <a href="#" class="th large-6 columns">
-                    <img src="{{trendingImage.2.path}}">
+                <a href="#" class="th small-4 columns">
+                    <img src="{{trendingImages.1.path}}">
                 </a>
             </div>
             <div class="row">
-                <a href="#" class="th large-3 columns">
+                <a href="#" class="th small-4 columns">
+                    <img src="{{images.0.path}}">
+                </a>
+                <a href="#" class="th small-4 columns">
                     <img src="{{images.1.path}}">
                 </a>
-                <a href="#" class="th large-3 columns">
+                <a href="#" class="th small-4 columns">
                     <img src="{{images.2.path}}">
-                </a>
-                <a href="#" class="th large-3 columns">
-                    <img src="{{images.3.path}}">
-                </a>
-                <a href="#" class="th large-3 columns">
-                    <img src="{{images.4.path}}">
                 </a>
             </div>
 
@@ -54,8 +49,9 @@
         </div>
         <div id="bodyContent">
             <div class="row">
+                <h2>{{name}}</h2>
                 <a href="#" class="th large-12 columns">
-                    <img src="{{point.image.path}}">
+                    <img src="{{imagePath}}">
                 </a>
             </div>
         </div>

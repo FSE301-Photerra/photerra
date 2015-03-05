@@ -3842,7 +3842,7 @@ ul.pagination {
   display: none;
   left: 0; }
 
-.reveal-modal, .about-modal, .login-modal, .register-modal {
+.reveal-modal, .about-modal, .login-modal, .register-modal, .upload-modal {
   visibility: hidden;
   display: none;
   position: absolute;
@@ -3856,66 +3856,66 @@ ul.pagination {
   border: solid 1px #666666;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); }
   @media only screen and (max-width: 40em) {
-    .reveal-modal, .about-modal, .login-modal, .register-modal {
+    .reveal-modal, .about-modal, .login-modal, .register-modal, .upload-modal {
       min-height: 100vh; } }
-  .reveal-modal .column, .about-modal .column, .login-modal .column, .register-modal .column, .reveal-modal .columns, .about-modal .columns, .login-modal .columns, .register-modal .columns {
+  .reveal-modal .column, .about-modal .column, .login-modal .column, .register-modal .column, .upload-modal .column, .reveal-modal .columns, .about-modal .columns, .login-modal .columns, .register-modal .columns, .upload-modal .columns {
     min-width: 0; }
-  .reveal-modal > :first-child, .about-modal > :first-child, .login-modal > :first-child, .register-modal > :first-child {
+  .reveal-modal > :first-child, .about-modal > :first-child, .login-modal > :first-child, .register-modal > :first-child, .upload-modal > :first-child {
     margin-top: 0; }
-  .reveal-modal > :last-child, .about-modal > :last-child, .login-modal > :last-child, .register-modal > :last-child {
+  .reveal-modal > :last-child, .about-modal > :last-child, .login-modal > :last-child, .register-modal > :last-child, .upload-modal > :last-child {
     margin-bottom: 0; }
   @media only screen and (min-width:40.063em) {
-    .reveal-modal, .about-modal, .login-modal, .register-modal {
+    .reveal-modal, .about-modal, .login-modal, .register-modal, .upload-modal {
       width: 80%;
       max-width: 62.5rem;
       left: 0;
       right: 0;
       margin: 0 auto; } }
   @media only screen and (min-width:40.063em) {
-    .reveal-modal, .about-modal, .login-modal, .register-modal {
+    .reveal-modal, .about-modal, .login-modal, .register-modal, .upload-modal {
       top: 6.25rem; } }
-  .reveal-modal.radius, .radius.about-modal, .radius.login-modal, .radius.register-modal {
+  .reveal-modal.radius, .radius.about-modal, .radius.login-modal, .radius.register-modal, .radius.upload-modal {
     border-radius: 3px; }
-  .reveal-modal.round, .round.about-modal, .about-modal.notifications, .round.login-modal, .login-modal.notifications, .round.register-modal, .register-modal.notifications, .reveal-modal.notifications {
+  .reveal-modal.round, .round.about-modal, .about-modal.notifications, .round.login-modal, .login-modal.notifications, .round.register-modal, .register-modal.notifications, .round.upload-modal, .upload-modal.notifications, .reveal-modal.notifications {
     border-radius: 1000px; }
-  .reveal-modal.collapse, .collapse.about-modal, .collapse.login-modal, .collapse.register-modal {
+  .reveal-modal.collapse, .collapse.about-modal, .collapse.login-modal, .collapse.register-modal, .collapse.upload-modal {
     padding: 0; }
   @media only screen and (min-width:40.063em) {
-    .reveal-modal.tiny, .tiny.about-modal, .tiny.login-modal, .tiny.register-modal {
+    .reveal-modal.tiny, .tiny.about-modal, .tiny.login-modal, .tiny.register-modal, .tiny.upload-modal {
       width: 30%;
       max-width: 62.5rem;
       left: 0;
       right: 0;
       margin: 0 auto; } }
   @media only screen and (min-width:40.063em) {
-    .reveal-modal.small, .small.about-modal, .small.login-modal, .small.register-modal {
+    .reveal-modal.small, .small.about-modal, .small.login-modal, .small.register-modal, .small.upload-modal {
       width: 40%;
       max-width: 62.5rem;
       left: 0;
       right: 0;
       margin: 0 auto; } }
   @media only screen and (min-width:40.063em) {
-    .reveal-modal.medium, .medium.about-modal, .medium.login-modal, .medium.register-modal {
+    .reveal-modal.medium, .medium.about-modal, .medium.login-modal, .medium.register-modal, .medium.upload-modal {
       width: 60%;
       max-width: 62.5rem;
       left: 0;
       right: 0;
       margin: 0 auto; } }
   @media only screen and (min-width:40.063em) {
-    .reveal-modal.large, .large.about-modal, .large.login-modal, .large.register-modal {
+    .reveal-modal.large, .large.about-modal, .large.login-modal, .large.register-modal, .large.upload-modal {
       width: 70%;
       max-width: 62.5rem;
       left: 0;
       right: 0;
       margin: 0 auto; } }
   @media only screen and (min-width:40.063em) {
-    .reveal-modal.xlarge, .xlarge.about-modal, .xlarge.login-modal, .xlarge.register-modal {
+    .reveal-modal.xlarge, .xlarge.about-modal, .xlarge.login-modal, .xlarge.register-modal, .xlarge.upload-modal {
       width: 95%;
       max-width: 62.5rem;
       left: 0;
       right: 0;
       margin: 0 auto; } }
-  .reveal-modal.full, .full.about-modal, .full.login-modal, .full.register-modal {
+  .reveal-modal.full, .full.about-modal, .full.login-modal, .full.register-modal, .full.upload-modal {
     top: 0;
     left: 0;
     height: 100%;
@@ -3924,15 +3924,15 @@ ul.pagination {
     max-width: none !important;
     margin-left: 0 !important; }
     @media only screen and (min-width:40.063em) {
-      .reveal-modal.full, .full.about-modal, .full.login-modal, .full.register-modal {
+      .reveal-modal.full, .full.about-modal, .full.login-modal, .full.register-modal, .full.upload-modal {
         width: 100%;
         max-width: 62.5rem;
         left: 0;
         right: 0;
         margin: 0 auto; } }
-  .reveal-modal.toback, .toback.about-modal, .toback.login-modal, .toback.register-modal {
+  .reveal-modal.toback, .toback.about-modal, .toback.login-modal, .toback.register-modal, .toback.upload-modal {
     z-index: 1003; }
-  .reveal-modal .close-reveal-modal, .about-modal .close-reveal-modal, .login-modal .close-reveal-modal, .register-modal .close-reveal-modal {
+  .reveal-modal .close-reveal-modal, .about-modal .close-reveal-modal, .login-modal .close-reveal-modal, .register-modal .close-reveal-modal, .upload-modal .close-reveal-modal {
     font-size: 2.5rem;
     line-height: 1;
     position: absolute;
@@ -7705,7 +7705,7 @@ html, body, .map-element {
   margin: 0;
   padding: 0; }
 
-.about-modal, .login-modal, .register-modal {
+.about-modal, .login-modal, .register-modal, .upload-modal {
   width: 40%; }
 
 .register-modal .button-group {
@@ -7736,3 +7736,5 @@ html, body, .map-element {
   font-size: 2em; }
 .map-popup .th img {
   width: 100%; }
+.gm-style-iw + div img {
+    max-width: none; }
