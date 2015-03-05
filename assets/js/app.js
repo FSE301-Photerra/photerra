@@ -30,7 +30,6 @@ var app = (function(document, $, Handlebars) {
                     ]
                 },
                 lastOpenWindow = null;
-                
 
             //Set map options
             var mapOptions = {
@@ -150,26 +149,27 @@ var app = (function(document, $, Handlebars) {
                     }).open(map, this);
                 });
             }
-
         },
-		_init = function() {
-			$(document).foundation();
+        _init = function() {
+            $(document).foundation();
             // needed to use joyride
             // doc: http://foundation.zurb.com/docs/components/joyride.html
+
             $(document).on('click', '#start-jr', function () {
                 $(document).foundation('joyride', 'start');
             });
+
             $(document).on('click', '#close-form', function () {
                 $(document).foundation('reveal', 'close');
             });
-			_userAgentInit();
+
+            _userAgentInit();
             _initializeMap();
         };
 	return {
 		init: _init
 	};
 })(document, jQuery, Handlebars);
-
 (function() {
 	app.init();
 })();
