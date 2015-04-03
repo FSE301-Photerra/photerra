@@ -1,0 +1,47 @@
+{% extends 'base.twig' %}
+
+{% block body %}
+    <?php if(isset($_GET['remarks'])) : ?>
+        <?php if($_GET['remarks'] == 'failure') : ?>
+            <div data-alert class="alert-box alert radius">
+                Unable to login with the provided credentials.
+            </div>
+        <?php elseif($_GET['remarks'] == 'success') : ?>
+            <div data-alert class="alert-box success radius">
+                Successfully created an account.
+            </div>
+        <?php endif; ?>
+    <?php endif; ?>
+
+    <div data-alert class="alert-box radius">
+        Please use your credentials to log in.
+        If you don't have an account then click on the sign up button.
+    </div>
+
+    <form method="POST" action="check.php">
+        <div class="row">
+            <div class="large-12 columns">
+              <label>
+                Username
+                <input type="text" name="username">
+              </label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+              <label>
+                Password
+                <input type="password" name="password">
+              </label>
+            </div>
+        </div>
+
+        <div class="row">
+            <ul class="button-group">
+                <li><input type="submit" class="button success" value="Login"></li>
+                <li><a href="register.php" class="button">Sign Up</a></li>
+            </ul>
+        </div>
+    </form>
+{% endblock %}
