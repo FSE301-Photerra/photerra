@@ -1,0 +1,299 @@
+{% extends 'base.twig' %}
+
+{% block head %}
+<script type="text/x-handlebars-template" id="nearby-template">
+<div id="content" class="map-popup">
+    <div id="siteNotice">
+    </div>
+    <div id="bodyContent">
+        <div class="row">
+            <a href="#" class="th small-4 columns">
+                <img src="{{featuredImage.path}}">
+            </a>
+            <a href="#" class="th small-4 columns">
+                <img src="{{trendingImages.0.path}}">
+            </a>
+            <a href="#" class="th small-4 columns">
+                <img src="{{trendingImages.1.path}}">
+            </a>
+        </div>
+        <div class="row">
+            <a href="#" class="th small-4 columns">
+                <img src="{{images.0.path}}">
+            </a>
+            <a href="#" class="th small-4 columns">
+                <img src="{{images.1.path}}">
+            </a>
+            <a href="#" class="th small-4 columns">
+                <img src="{{images.2.path}}">
+            </a>
+        </div>
+
+        <div class="row">
+            <div class="large-4 columns">
+                <a href="#" data-reveal-id="upload-modal"><i class="add-icon"></i> Add Image</a>
+            </div>
+        </div>
+    </div>
+</div>
+</script>
+
+<script type="text/x-handlebars-template" id="pin-template">
+<div id="content" class="map-popup">
+    <div id="siteNotice">
+    </div>
+    <div id="bodyContent">
+        <div class="row">
+            <h2>{{name}}</h2>
+            <a href="#" class="th large-12 columns">
+                <img src="{{imagePath}}">
+            </a>
+        </div>
+    </div>
+</div>
+</script>
+{% endblock %}
+
+
+{% block body %}
+<div class="map-element" id="map-canvas"></div>
+
+<!-- Notifications -->
+<div data-alert class="notifications">
+    <p class="content"></p>
+    <a href="#" class="close">x</a>
+</div>
+
+<!-- Login form -->
+<div id="login-modal" class="login-modal" data-reveal>
+    <div data-alert class="alert-box radius">
+        Please use your credentials to log in.
+        If you don't have an account then click on the sign up button.
+    </div>
+
+    <form method="POST" action="check.php">
+        <div class="row">
+            <div class="large-12 columns">
+              <label>
+                Username
+                <input type="text" name="username">
+              </label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+              <label>
+                Password
+                <input type="password" name="password">
+              </label>
+            </div>
+        </div>
+
+        <div class="row">
+            <ul class="button-group">
+                <li><input type="submit" class="button success" value="Login"></li>
+                <li><a href="#" class="button" data-reveal-id="register-modal">Sign Up</a></li>
+                <li><a href="#" class="button alert" id="close-form">Close</a></li>
+            </ul>
+        </div>
+    </form>
+</div>
+
+<!-- Registration form -->
+<div id="register-modal" class="register-modal" data-reveal>
+    <div data-alert class="alert-box radius">
+        Please provide the following information to create an account.
+    </div>
+
+    <form method="POST" action="registration_execute.php">
+        <div class="row">
+            <div class="large-12 columns">
+              <label>
+                First Name
+                <input type="text" name="fname">
+              </label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+              <label>
+                Last Name
+                <input type="text" name="lname">
+              </label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+              <label>
+                Email
+                <input type="text" name="email">
+              </label>
+            </div>
+        </div>
+
+        <!--
+        <div class="row">
+            <div class="large-12 columns">
+              <label>
+                Confirm Email
+                <input type="text">
+              </label>
+            </div>
+        </div>
+        -->
+
+        <div class="row">
+            <div class="large-12 columns">
+              <label>
+                Username
+                <input type="text" name="username">
+              </label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+              <label>
+                Password
+                <input type="password" name="password">
+              </label>
+            </div>
+        </div>
+
+        <!--
+        <div class="row">
+            <div class="large-12 columns">
+              <label>
+                Confirm Password
+                <input type="password">
+              </label>
+            </div>
+        </div>
+        -->
+
+        <div class="row">
+            <ul class="button-group">
+                <li><input type="submit" class="button success" value="Register"></li>
+                <li><a href="#" class="button alert" id="close-form">Close</a></li>
+            </ul>
+        </div>
+    </form>
+</div>
+
+<!-- FAQ -->
+<div id="faq-modal" class="about-modal" data-reveal>
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="question-answer">
+        <span class="question">
+            How do I create a profile?
+        </span>
+        <p class="answer">
+            On the main page, click “Login” and then “Sign Up”
+        </p>
+    </div>
+     
+    <div class="question-answer">
+        <span class="question">
+            How do I upload a photo?
+        </span>
+        <p class="answer">
+            Make sure you are logged in. Click on the map where you would like to upload your photo. In the balloon that pops up, click “Add Image”. Choose the photo from your computer.
+        </p>
+    </div>
+     
+    <div class="question-answer">
+        <span class="question">
+            How big can my photos be?
+        </span>
+        <p class="answer">
+            Photos are limited to 8 mb.
+        </p>
+    </div>
+     
+    <div class="question-answer">
+        <span class="question">
+            How do I get my photo to be one of the big photos that pops up?
+        </span>
+        <p class="answer">
+            The largest photo in the balloon is the highest rated photo in the area. By paying for a premium listing, you can have your photo displayed as one of the two larger photos in the balloon.
+        </p>
+    </div>
+
+    <a href="#" class="close-reveal-modal">x</a>
+</div>
+
+
+<!-- Contact -->
+<div id="contact-modal" class="about-modal" data-reveal>
+    <h2>Contact Us</h2>
+    <p>
+    Please send any comments, issues, or bugs to:<br>
+    contact-us@photerras.com.
+    </p>
+    <a href="#" class="close-reveal-modal">x</a>
+</div>
+
+
+<div id="upload-modal" class="upload-modal" data-reveal>
+    <form>
+        <div class="row">
+            <div class="large-12 columns">
+              <label>
+                Image Name
+                <input type="text">
+              </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-12 columns">
+              <label>
+                Image File
+                <input type="file">
+              </label>
+            </div>
+        </div>
+
+        <div class="row">
+            <ul class="button-group">
+                <li><a href="#" class="button success">Upload</a></li>
+                <li><a href="#" class="button alert" id="close-form">Close</a></li>
+            </ul>
+        </div>
+    </form>
+</div>
+
+<!-- About modal -->
+<div id="about-modal" class="about-modal" data-reveal>
+    <h2>What is Photerras?</h2>
+     
+    <p>
+    The modern world loves taking pictures. Facebook, Instagram, Snapchat, Imagur, Flickr - all flooded with a wide variety of good and bad photos. Amidst the barrage of selfies, group selfies, food shots, and cat pictures, it is hard for truly artistic photos to stand out.
+    </p>
+     
+    <p>
+    We saw this problem and wanted to do something about it. We appreciate photography, not for what it has become, but for what it once was: art. We have put together a site directed at those with a camera that doesn’t also make phone calls.
+    </p>
+     
+    <p>
+    Photerras is a site where users can upload their best works. Each picture is tagged to a location on the map where it was taken. Visitors to the site can browse through the photos, commenting, liking, and enjoying.
+    </p>
+     
+    <p>
+    Photerras gives amateur photographers the exposure they want and reminds everyone that there is art in photography.
+    </p>
+     
+    <p>
+    Photerras.com was started by Reese Pratt, Andrew Herzberg, Kurosh Keyvani, and Weston Neal as a project for an ASU entrepreneurship class.
+    </p>
+
+    <a href="#" class="close-reveal-modal">x</a>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="assets/js/vendor/handlebars.min.js"></script>
+{% endblock %}

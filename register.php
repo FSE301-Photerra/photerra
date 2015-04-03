@@ -34,12 +34,50 @@
         <?php endif; ?>
     <?php endif; ?>
 
+    <!-- Registration form -->
     <div data-alert class="alert-box radius">
-        Please use your credentials to log in.
-        If you don't have an account then click on the sign up button.
+        Please provide the following information to create an account.
     </div>
 
-    <form method="POST" action="check.php">
+    <form method="POST" action="registration_execute.php">
+        <div class="row">
+            <div class="large-12 columns">
+              <label>
+                First Name
+                <input type="text" name="fname">
+              </label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+              <label>
+                Last Name
+                <input type="text" name="lname">
+              </label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+              <label>
+                Email
+                <input type="text" name="email">
+              </label>
+            </div>
+        </div>
+
+        <!--
+        <div class="row">
+            <div class="large-12 columns">
+              <label>
+                Confirm Email
+                <input type="text">
+              </label>
+            </div>
+        </div>
+        -->
+
         <div class="row">
             <div class="large-12 columns">
               <label>
@@ -58,10 +96,20 @@
             </div>
         </div>
 
+        <!--
+        <div class="row">
+            <div class="large-12 columns">
+              <label>
+                Confirm Password
+                <input type="password">
+              </label>
+            </div>
+        </div>
+        -->
+
         <div class="row">
             <ul class="button-group">
-                <li><input type="submit" class="button success" value="Login"></li>
-                <li><a href="register.php" class="button">Sign Up</a></li>
+                <li><input type="submit" class="button success" value="Register"></li>
             </ul>
         </div>
     </form>
