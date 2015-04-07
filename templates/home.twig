@@ -239,12 +239,15 @@
 
 
 <div id="upload-modal" class="upload-modal" data-reveal>
-    <form>
+    <form id="upload-form">
         <div class="row">
+            <input type="hidden" name="lat">
+            <input type="hidden" name="lng">
+
             <div class="large-12 columns">
               <label>
                 Image Name
-                <input type="text">
+                <input type="text" name="imageName">
               </label>
             </div>
         </div>
@@ -252,7 +255,7 @@
             <div class="large-12 columns">
               <label>
                 Image File
-                <input type="file">
+                <input type="file" name="fileToUpload">
               </label>
             </div>
         </div>

@@ -20,12 +20,22 @@
             </li>
             <li class="divider"></li>
             <li>
+                <a href="#" data-reveal-id="about-modal">About Us</a>
+            </li>
+            <li class="divider"></li>
+            <li>
                 <a href="#" data-reveal-id="faq-modal">FAQ</a>
             </li>
             <li class="divider"></li>
+            {% if session.loggedIn %}
+            <li class="active">
+                <a href="logout.php">Logout</a>
+            </li>
+            {% else %}
             <li class="active">
                 <a href="#" data-reveal-id="login-modal"><i class="user-icon"></i> Login</a>
             </li>
+            {% endif %}
         </ul>
     </section>
 </nav>
