@@ -1,3 +1,4 @@
+vendor/
 cgi-bin/
 *.*~
 .htaccess
