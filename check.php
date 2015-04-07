@@ -1,46 +1,35 @@
 <?php
+if ($_SESSION['loggedIn'] || $_SERVER['REQUEST_METHOD'] != 'POST') {
+    header("Location: /home.php");
+    die();
+}
 
-$validLogin=false;
 include 'connect.php';
 
-$username=$_POST['username'];
-$password=$_POST['password'];
-
+$username = $_POST['username'];
+$password = $_POST['password'];
   
-$query="SELECT * FROM Users";//select all the elements of the user table, * represents "ALL"
-$result=mysqli_query($link, $query) or die(mysqli_error($link));
+// Build and run the user lookup
+$query = sprintf("SELECT member_id, fname, lname FROM Users WHERE username = '%s' AND password = '%s';",
+                 mysql_real_escape_string($username),
+                 mysql_real_escape_string($password));
 
-while($row = mysqli_fetch_array($result)) { 
-  
-  if($row[1]==$username)
-  {
-    
-    if($row[2]==$password)
-    {
-      
-      $validLogin=true;
-      $member_id=$row[0];
-      
-    }
-  }
- 
-} 
+$result = mysqli_query($link, $query) or die(mysqli_error($link));
 
+// Handle the result of the lookup
+if (count($result)) {
+    $row = mysqli_fetch_array($result, MYSQL_ASSOC);
 
-if($validLogin)
-{
-  session_start();
-  $_SESSION['Logged_In']=1; 
-  $_SESSION["Id"]=$member_id; 
-  print_r($_SESSION);
-  header("Location: /userProfile.php?member_id=".$member_id);
-  exit;
+    // Update the session
+    session_start();
+	$_SESSION['loggedIn'] = 1; 
+	$_SESSION['userId'] = $row['member_id'];
+	$_SESSION['firstname'] = $row['fname'];
+	$_SESSION['lastname'] = $row['lname'];
+
+ 	header("Location: /home.php");
+    die();
+} else {	
+	header("Location: /login.php?remarks=failure");
+    die();
 }
-else
-{ 
-  $_SESSION["Logged_In"]=false; 
-  header("Location: /login.php?remarks=failure");
-  exit; 
-}
-
-?>
