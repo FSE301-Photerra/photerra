@@ -238,32 +238,35 @@
 </div>
 
 
+<!-- Upload form -->
 <div id="upload-modal" class="upload-modal" data-reveal>
-    <form>
-        <div class="row">
-            <div class="large-12 columns">
-              <label>
-                Image Name
-                <input type="text">
-              </label>
+    <div id="upload-modal" class="upload-modal" data-reveal>
+        <form method="POST" action="imageUpload.php" enctype="multipart/form-data">
+            <div class="row">
+                <div class="large-12 columns">
+                  <label>
+                    Image Name
+                    <input type="text" name="imageName" id="imageName">
+                  </label>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="large-12 columns">
-              <label>
-                Image File
-                <input type="file">
-              </label>
+            <div class="row">
+                <div class="large-12 columns">
+                  <label>
+                    Image File
+                    <input type="file" name="fileToUpload" id="fileToUpload">
+                  </label>
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <ul class="button-group">
-                <li><a href="#" class="button success">Upload</a></li>
-                <li><a href="#" class="button alert" id="close-form">Close</a></li>
-            </ul>
-        </div>
-    </form>
+            <div class="row">
+                <ul class="button-group">
+                    <li><input type="submit" name="submit" id="submit" value="Upload" class="button success"></li>
+                    <li><a href="#" class="button alert" id="close-form">Close</a></li>
+                </ul>
+            </div>
+        </form>
+    </div>
 </div>
 
 <!-- About modal -->
