@@ -1,4 +1,7 @@
 vendor/
+pictures/
 cgi-bin/
-*.*~
+php.ini
 .htaccess
+error_log
+*.*~
