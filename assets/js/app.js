@@ -15,6 +15,8 @@ var app = (function(document, $, Handlebars) {
                 points = [
                     {
                         name: 'A super cool spot',
+                        mid: '5df6ae72b9',
+                        currUser: false,
                         location: [32.7150,-117.1625],
                         imagePath: 'assets/images/sandiego7.jpg'
                     }
@@ -119,7 +121,7 @@ var app = (function(document, $, Handlebars) {
             for (var i=0; i<points.length; i++) {
                 // Create a new point
                 var mark = new google.maps.Marker({
-                    icon: '/assets/images/green_dot.png',
+                    icon: '/assets/images/' + ((points[i].currUser) ? 'green' : 'red') + '_dot.png',
                     position: new google.maps.LatLng(points[i].location[0], points[i].location[1]),
                     map: map,
                     title: points[i].name
