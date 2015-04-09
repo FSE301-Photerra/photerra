@@ -1,0 +1,37 @@
+{# Handlebar template for displaying the nearby images #}
+{% verbatim %}
+<div id="content" class="map-popup">
+    <div id="siteNotice">
+    </div>
+    <div id="bodyContent">
+        <div class="row">
+            <a href="#" class="th small-4 columns">
+                <img src="{{featuredImage.path}}">
+            </a>
+            <a href="#" class="th small-4 columns">
+                <img src="{{trendingImages.0.path}}">
+            </a>
+            <a href="#" class="th small-4 columns">
+                <img src="{{trendingImages.1.path}}">
+            </a>
+        </div>
+        <div class="row">
+            <a href="#" class="th small-4 columns">
+                <img src="{{images.0.path}}">
+            </a>
+            <a href="#" class="th small-4 columns">
+                <img src="{{images.1.path}}">
+            </a>
+            <a href="#" class="th small-4 columns">
+                <img src="{{images.2.path}}">
+            </a>
+        </div>
+
+        <div class="row">
+            <div class="large-4 columns">
+                <a href="#" data-reveal-id="upload-modal"><i class="add-icon"></i> Add Image</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endverbatim %}

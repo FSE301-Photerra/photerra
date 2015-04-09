@@ -1,59 +1,9 @@
 {% extends 'base.twig' %}
 
 {% block head %}
-<script type="text/x-handlebars-template" id="nearby-template">
-<div id="content" class="map-popup">
-    <div id="siteNotice">
-    </div>
-    <div id="bodyContent">
-        <div class="row">
-            <a href="#" class="th small-4 columns">
-                <img src="{{featuredImage.path}}">
-            </a>
-            <a href="#" class="th small-4 columns">
-                <img src="{{trendingImages.0.path}}">
-            </a>
-            <a href="#" class="th small-4 columns">
-                <img src="{{trendingImages.1.path}}">
-            </a>
-        </div>
-        <div class="row">
-            <a href="#" class="th small-4 columns">
-                <img src="{{images.0.path}}">
-            </a>
-            <a href="#" class="th small-4 columns">
-                <img src="{{images.1.path}}">
-            </a>
-            <a href="#" class="th small-4 columns">
-                <img src="{{images.2.path}}">
-            </a>
-        </div>
-
-        <div class="row">
-            <div class="large-4 columns">
-                <a href="#" data-reveal-id="upload-modal"><i class="add-icon"></i> Add Image</a>
-            </div>
-        </div>
-    </div>
-</div>
-</script>
-
-<script type="text/x-handlebars-template" id="pin-template">
-<div id="content" class="map-popup">
-    <div id="siteNotice">
-    </div>
-    <div id="bodyContent">
-        <div class="row">
-            <h2>{{name}}</h2>
-            <a href="#" class="th large-12 columns">
-                <img src="{{imagePath}}">
-            </a>
-        </div>
-    </div>
-</div>
-</script>
+<script type="text/x-handlebars-template" id="nearby-template">{{ include('_popup.twig') }}</script>
+<script type="text/x-handlebars-template" id="pin-template">{{ include('_pin.twig') }}</script>
 {% endblock %}
-
 
 {% block body %}
 <div class="map-element" id="map-canvas"></div>
@@ -240,36 +190,34 @@
 
 <!-- Upload form -->
 <div id="upload-modal" class="upload-modal" data-reveal>
-    <div id="upload-modal" class="upload-modal" data-reveal>
-        <form method="POST" action="imageUpload.php" enctype="multipart/form-data">
-            <input type="hidden" name="lat">
-            <input type="hidden" name="lng">
+    <form method="POST" action="imageUpload.php" enctype="multipart/form-data">
+        <input type="hidden" name="lat">
+        <input type="hidden" name="lng">
 
-            <div class="row">
-                <div class="large-12 columns">
-                  <label>
-                    Image Name
-                    <input type="text" name="imageName" id="imageName">
-                  </label>
-                </div>
+        <div class="row">
+            <div class="large-12 columns">
+              <label>
+                Image Name
+                <input type="text" name="imageName" id="imageName">
+              </label>
             </div>
-            <div class="row">
-                <div class="large-12 columns">
-                  <label>
-                    Image File
-                    <input type="file" name="fileToUpload" id="fileToUpload">
-                  </label>
-                </div>
+        </div>
+        <div class="row">
+            <div class="large-12 columns">
+              <label>
+                Image File
+                <input type="file" name="fileToUpload" id="fileToUpload">
+              </label>
             </div>
+        </div>
 
-            <div class="row">
-                <ul class="button-group">
-                    <li><input type="submit" name="submit" id="submit" value="Upload" class="button success"></li>
-                    <li><a href="#" class="button alert" id="close-form">Close</a></li>
-                </ul>
-            </div>
-        </form>
-    </div>
+        <div class="row">
+            <ul class="button-group">
+                <li><input type="submit" name="submit" id="submit" value="Upload" class="button success"></li>
+                <li><a href="#" class="button alert" id="close-form">Close</a></li>
+            </ul>
+        </div>
+    </form>
 </div>
 
 <!-- About modal -->

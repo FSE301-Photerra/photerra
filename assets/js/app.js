@@ -2,6 +2,10 @@
 
 var app = (function(document, $, Handlebars) {
 	var docElem = document.documentElement,
+        _state = {
+            openWindow: null,
+            currMarker: null
+        },
 		_userAgentInit = function() {
 			docElem.setAttribute('data-useragent', navigator.userAgent);
 		},
@@ -28,8 +32,7 @@ var app = (function(document, $, Handlebars) {
                         {name: 'Image 2', path: 'assets/images/sandiego5.jpg'},
                         {name: 'Image 3', path: 'assets/images/sandiego6.jpg'},
                     ]
-                },
-                lastOpenWindow = null;
+                };
 
             //Set map options
             var mapOptions = {
@@ -45,33 +48,32 @@ var app = (function(document, $, Handlebars) {
                 minZoom: 3
             };
 
-            //Create map
+            // Create map
             var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-            //Set styles
+            // Set map styles
             var styles = [
                 {
-                stylers: [
-                    //{ visibility: 'simplified' }
-                ]
-                },{
                     featureType: "poi",
                     stylers: [
                         { visibility: "off" }
                     ]
-                    },{
+                },
+                {
                     featureType: "landscape",
                     stylers: [
                         { visibility: "off" }
                     ]
-                    },{
+                },
+                {
                     featureType: "water",
                     stylers: [
                         { hue: "#10253f" },
                         { "lightness": -80 },
                         { saturation: -50 }
                     ]
-                },{
+                },
+                {
                     featureType: "road",
                     stylers: [
                         { hue: "#584528" },
@@ -88,65 +90,52 @@ var app = (function(document, $, Handlebars) {
             map.mapTypes.set('map_style', styledMap);
             map.setMapTypeId('map_style');
 
-            /* For now the upload will be triggered via the link
-            google.maps.event.addListener(map, 'rightclick', function(event){
-                var marker = new google.maps.Marker({
-                    icon: '/assets/images/dot.png',
-                    size: new google.maps.Size(20,32),
-                    position: event.latLng,
-                    map: map,
-                    title: 'Hello World'
-                });
-
-                newwindow=window.open('uploadpic.html','Upload Picture','toolbar=no, scrollbars=no, \n\
-                    resizable=no, top=0, left=0, height=200, width=350,\n\
-                    location=no, menubar=no, status=no, titlebar=no');
-                if (window.focus) {newwindow.focus();}
-
-                google.maps.event.addListener(marker, 'click', function(event){
-                    var out = "This is the photo at location: " + marker.getPosition();
-                    var myWindow = window.open("", "Display Images", "width=200, height=100");
-                    myWindow.document.write(out);
-                });
-            });
-            */
-
             google.maps.event.addListener(map, 'click', function(event){
-                //computeDistanceBetween()
-
                 var contentString = nearbyTemplate(nearbyData);
 
+                // clean up if needed
+                if (_state.openWindow) _state.openWindow.close();
+                if (_state.currMarker) _state.currMarker.setMap(null);
+
                 // Generate a new point where the user clicked.
-                var m = new google.maps.Marker({
-                    icon: '/assets/images/dot.png',
+                _state.currMarker = new google.maps.Marker({
                     position: event.latLng,
-                    map: map
+                    map: map,
+                    visible: false
                 });
 
                 // Move the marker to the center of the map
-                map.panTo(m.getPosition());
+                map.panTo(_state.currMarker.getPosition());
 
                 // Create and open a new info window
-                var iw = new google.maps.InfoWindow({
+                _state.openWindow = new google.maps.InfoWindow({
                     content: contentString
-                }).open(map, m);
+                })
+                
+                _state.openWindow.open(map, _state.currMarker);
             });
 
             // Add all of the points to the map
             for (var i=0; i<points.length; i++) {
                 // Create a new point
                 var mark = new google.maps.Marker({
-                    icon: '/assets/images/dot.png',
+                    icon: '/assets/images/green_dot.png',
                     position: new google.maps.LatLng(points[i].location[0], points[i].location[1]),
                     map: map,
                     title: points[i].name
                 });
 
+                if (_state.openWindow) _state.openWindow.close();
+                if (_state.currMarker) _state.currMarker.setMap(null);
+
                 google.maps.event.addListener(mark, 'click', function() {
+
                     // Create and open a new info window to display the points picture
-                    new google.maps.InfoWindow({
-                        content: pinTemplate(points[0])
-                    }).open(map, this);
+                    _state.openWindow = new google.maps.InfoWindow({
+                        content: pinTemplate(points[i])
+                    });
+
+                    _state.openWindow.open(map, this);
                 });
             }
         },
@@ -167,7 +156,8 @@ var app = (function(document, $, Handlebars) {
             _initializeMap();
         };
 	return {
-		init: _init
+		init: _init,
+        state: _state
 	};
 })(document, jQuery, Handlebars);
 (function() {
