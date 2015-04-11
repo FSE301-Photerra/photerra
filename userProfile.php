@@ -1,8 +1,9 @@
 <?php
-require 'app.php';
-require 'models/user.php';
+$ROOT = __DIR__;
+require $ROOT.'/app.php';
+require $ROOT.'/models/User.php';
 
-use \Models\User as user;
+use \Models\User as users;
 
 $id = $_GET['id'];
 
@@ -13,14 +14,14 @@ if (!isset($id)) {
 }
 
 // Attempt to look up the user
-$result = user\getById($id);
+$result = users\getById($id);
 
 // If this is a valid user then show the user's profile page, otherwise render a 404
 if ($result->num_rows) {
     // parse the query results
     // TODO: populate user from query?
     while($row = mysqli_fetch_assoc($result)) {
-        $user = new user\User();
+        $user = new users\User();
         $user->id = $row["id"];
         $user->firstname = $row["firstname"];
         $user->lastname = $row["lastname"];

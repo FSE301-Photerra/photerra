@@ -1,4 +1,5 @@
 <?php namespace Components\Utilities;
+$ROOT = __DIR__ . '/..';
 /**
  * Simple library of utilty functions that will be reused throughout the project
  */
@@ -12,13 +13,14 @@
  * @returns bool
  */
 function uploadImageFile($photo, $photoField) {
+    global $ROOT;
     $uploadStatus = 1;
-    $target_dir = __DIR__ . '/../pictures';
+    $target_dir = $ROOT.'/pictures';
 
     try {
         // Make sure the target directory exists, if not then create it
-        if (!file_exists(__DIR__ . '/..' . $target_dir)) {
-            mkdir(__DIR__ . '/..' . $target_dir, 0700);
+        if (!file_exists($target_dir)) {
+            mkdir($target_dir, 0700);
         }
 
         // Undefined | Multiple Files | $_FILES Corruption Attack
@@ -44,7 +46,7 @@ function uploadImageFile($photo, $photoField) {
         }
 
         // You should also check filesize here. 
-        if ($_FILES[$photoField]['size'] > 2000000) {
+        if ($_FILES[$photoField]['size'] > 4000000) {
             throw new \RuntimeException('Exceeded filesize limit.');
         }
 

@@ -1,6 +1,6 @@
 <?php namespace Models\Payment;
-// Include the database if needed
-require_once __DIR__ . '/../db.php';
+$ROOT = __DIR__ . '/..';
+require_once $ROOT.'/db.php';
 
 class Payment {
     public $id;             // Unique id

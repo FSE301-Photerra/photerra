@@ -18,16 +18,14 @@
                 <fieldset>
                     <legend>Account Details</legend>
                     <div class="row">
-                        <div class="large-12 columns">
+                        <div class="large-6 columns">
                             <label>
                                 First Name
                                 <input type="text" name="fname" value="{{ user.firstname }}">
                             </label>
                         </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="large-12 columns">
+                        <div class="large-6 columns">
                             <label>
                                 Last Name
                                 <input type="text" name="lname" value="{{ user.lastname }}">
@@ -57,24 +55,26 @@
         <section class="payments">
             <h2>Payments</h2>
             {% if payments|length > 0 %}
+            <div class="row">
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Description</th>
-                            <th>Date</th>
+                            <th width="10%">ID</th>
+                            <th width="70%">Description</th>
+                            <th width="20%">Date</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for payment in payments %}
                         <tr>
                             <td>{{ payment.id }}</td>
-                            <td>{{ payment.typedesc }}</td>
-                            <td>{{ payment.createdOn }}</td>
+                            <td>{{ payment.typeDesc }}</td>
+                            <td>{{ payment.createdOn|date("m/d/Y g:i a") }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
+            </div>
 
             {% else %}
                 <div class="panel callout radius">
@@ -118,11 +118,11 @@
     <section class="photos">
         <h2>Photos</h2>
         {% if photos|length > 0 %}
-            <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-4">
+            <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-4 clearing-thumbs" data-clearing>
                 {% for photo in photos %}
                 <li>
-                    <a class="th" href="viewPhoto.php?id={{ photo.id }}">
-                        <img src="/pictures/{{ photo.filename }}">
+                    <a class="th" href="/pictures/{{ photo.filename }}">
+                        <img src="/pictures/{{ photo.filename }}" data-caption="{{ photo.title }}">
                     </a>
                 </li>
                 {% endfor %}

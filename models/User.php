@@ -1,8 +1,8 @@
 <?php namespace Models\User;
-// Include the database if needed
-require_once __DIR__ . '/../db.php';
-require 'Photo.php';
-require 'Payment.php';
+$ROOT = __DIR__ . '/..';
+require_once $ROOT.'/db.php';
+require_once $ROOT.'/models/Photo.php';
+require_once $ROOT. '/models/Payment.php';
 
 use \Models\Photo as photos;
 use \Models\Payment as payments;
@@ -15,7 +15,6 @@ class User {
     public $lastname;
     public $email;
     public $createdOn;
-    public $updatedOn;
 
     private $photos;
     private $payments;
@@ -85,17 +84,15 @@ class User {
         $result = payments\getByUser($this->id);
 
         // Add the payments from this user
-        if ($result->num_rows) {
-            while($row = mysqli_fetch_assoc($result)) {
-                $tmp_payment = new payments\Payment();
-                $tmp_payment->id = $row['id'];
-                $tmp_payment->uid = $row['uid'];
-                $tmp_payment->typeId = $row['typeid'];
-                $tmp_payment->typeDesc = $row['desc'];
-                $tmp_payment->createdOn = $row['createdOn'];
+        while($row = mysqli_fetch_assoc($result)) {
+            $tmp_payment = new payments\Payment();
+            $tmp_payment->id = $row['id'];
+            $tmp_payment->uid = $row['uid'];
+            $tmp_payment->typeId = $row['typeid'];
+            $tmp_payment->typeDesc = $row['desc'];
+            $tmp_payment->createdOn = $row['createdOn'];
 
-                array_push($this->payments, $tmp_payment);
-            }
+            array_push($this->payments, $tmp_payment);
         }
 
         return $this->payments;
@@ -179,4 +176,34 @@ function loginUser($username, $password) {
     }
 
     return $valid;
+}
+
+
+/**
+ * Gets the user that is currently logged in
+ * @return mixed
+ */
+function getCurrentUser() {
+    $user = new User();
+
+    // Attempt to get the user
+    session_start();
+    if (isset($_SESSION['uid'])) {
+        $result = getById($_SESSION['uid']);
+    }
+
+    // Populate the user
+    if ($result->num_rows) {
+        // parse the query results
+        $row = mysqli_fetch_assoc($result);
+        $user = new User();
+        $user->id = $row["id"];
+        $user->firstname = $row["firstname"];
+        $user->lastname = $row["lastname"];
+        $user->username = $row["username"];
+        $user->email = $row["email"];
+        $user->createdOn = $row["createdOn"];
+    }
+
+    return $user;
 }

@@ -1,6 +1,7 @@
 <?php
-include 'vendor/autoload.php';
-require_once 'vendor/twig/twig/lib/Twig/Autoloader.php';
+$ROOT = __DIR__;
+include $ROOT.'/vendor/autoload.php';
+require_once $ROOT.'/vendor/twig/twig/lib/Twig/Autoloader.php';
 
 Twig_Autoloader::register();
 

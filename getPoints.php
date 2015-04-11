@@ -1,28 +1,28 @@
 <?php
+$ROOT = __DIR__;
+require_once $ROOT.'/app.php';
+require_once $ROOT.'/models/User.php';
+require_once $ROOT.'/models/Photo.php';
+use \Models\User as users;
+use \Models\Photo as photos;
 
-class Point {
-    public $name = "";
-    public $uid = "";
-    public $currUser = "";
-    public $location = array();
-    public $imagePath = "";
+$currUser = users\getCurrentUser();
+$qPhotos = photos\getAll();
 
-    function __construct($name, $uid, $currUser, $location, $imagePath) {
-        $this->name = $name;
-        $this->uid = $uid;
-        $this->currUser = $currUser;
-        $this->location = $location;
-        $this->imagePath = $imagePath;
-    }
+$points = array();
+
+// Populate the result
+while($row = mysqli_fetch_assoc($qPhotos)) {
+    $tmp_point = new photos\Point();
+
+    $tmp_point->name = $row['title'];
+    $tmp_point->uid = $row['uid'];
+    $tmp_point->currUser = $row['uid'] === $currUser->id;
+    $tmp_point->location = array($row['lat'], $row['lng']);
+    $tmp_point->imagePath = $ROOT.'/pictures/'.$row['filename'];
+
+    array_push($points, $tmp_point);
 }
-
-// Hard coded tmp values
-$points = array(
-    new Point('A super cool spot', '5df6ae72b9', false, array(32.7150,-117.1625), 'assets/images/sandiego7.jpg'),
-);
-
-// to show that the loading of points on the map is asynchronous
-sleep(2);
 
 header('Content-Type: application/json');
 echo json_encode($points);

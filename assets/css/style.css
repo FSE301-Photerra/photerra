@@ -7741,3 +7741,5 @@ html, body, .map-element {
 .container {
    width: 95%; 
    margin: 0 auto; }
+.payments table {
+    width: 100%; }

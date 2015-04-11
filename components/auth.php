@@ -1,4 +1,6 @@
 <?php namespace Components\Auth;
+$ROOT = __DIR__ . '/..';
+
 /**
  * Requires that the request type be a post
  */

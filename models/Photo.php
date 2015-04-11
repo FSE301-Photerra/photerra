@@ -1,10 +1,12 @@
 <?php namespace Models\Photo;
-// Include the database if needed
-require_once __DIR__ . '/../db.php';
-require_once __DIR__ . '/../components/utilities.php';
-
+$ROOT = __DIR__ . '/..';
+require_once $ROOT.'/db.php';
+require_once $ROOT.'/components/utilities.php';
 use \Components\Utilities as utils;
 
+/**
+ * The main photo model
+ */
 class Photo {
     public $id;         // Unique id
     public $uid;         // Uploading users id
@@ -65,6 +67,25 @@ class Photo {
 }
 
 /**
+ * A point is the data format that is sent to the main page to plot the points
+ */
+class Point {
+    public $name;
+    public $uid;
+    public $imagePath;
+    public $currUser = FALSE;
+    public $location = array();
+
+    function __construct($name, $uid, $currUser, $location, $imagePath) {
+        $this->name = $name;
+        $this->uid = $uid;
+        $this->currUser = $currUser;
+        $this->location = $location;
+        $this->imagePath = $imagePath;
+    }
+}
+
+/**
  * Attepts to look up a picture by id
  * @param int $id
  * @return mixed
@@ -114,4 +135,18 @@ function getCountByUser($uid) {
     $count = $row['PhotoCount'];
 
     return $count;
+}
+
+/**
+ * Gets all the photos in the system
+ * @return mixed
+ */
+function getAll() {
+    // Run the query and get the user details
+    $query = sprintf("SELECT * FROM Photos");
+
+    $conn = \DB\getConnection();
+    $result = $conn->query($query);
+
+    return $result;
 }
