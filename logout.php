@@ -1,4 +1,6 @@
 <?php
+include 'app.php';
+
 // If it's desired to kill the session, also delete the session cookie.
 // Note: This will destroy the session, and not just the session data!
 if (ini_get("session.use_cookies")) {
@@ -12,5 +14,5 @@ if (ini_get("session.use_cookies")) {
 // Finally, destroy the session.
 session_destroy();
 
-// go back to the home page
-header("Location: /home.php");
+// render template
+echo $twig->render('logout.twig', array());

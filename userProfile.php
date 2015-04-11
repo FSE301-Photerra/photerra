@@ -1,30 +1,39 @@
 <?php
-include 'app.php';
-include 'connect.php';
+require 'app.php';
+require 'models/user.php';
+
+use \Models\User as user;
 
 $id = $_GET['id'];
 
-// Run the query and get the user details
-$query = sprintf("SELECT fname,lname,username FROM Users WHERE member_id='%s'",
-                 $id);
+// If an id was not provided check to see if the user is logged in
+if (!isset($id)) {
+    session_start();
+    $id = $_SESSION['uid'];
+}
 
-$result = mysqli_query($link, $query)
-            or die(mysqli_error($link));
+// Attempt to look up the user
+$result = user\getById($id);
 
+// If this is a valid user then show the user's profile page, otherwise render a 404
 if ($result->num_rows) {
     // parse the query results
+    // TODO: populate user from query?
     while($row = mysqli_fetch_assoc($result)) {
-        $fname=$row["fname"];
-        $lname=$row["lname"];
-        $username=$row["username"];
+        $user = new user\User();
+        $user->id = $row["id"];
+        $user->firstname = $row["firstname"];
+        $user->lastname = $row["lastname"];
+        $user->email = $row["email"];
     }
 
     // render template
     echo $twig->render('profile.twig', array(
-        'firstname' => $fname,
-        'lastname' => $lname,
-        'username' => $username,
+        'user' => $user,
+        'photos' => $user->getPhotos(),
+        'payments' => $user->getPayments(),
     ));
+
 } else {
     header("HTTP/1.1 404 Not Found");
     echo $twig->render('404.twig', array());

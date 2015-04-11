@@ -2,9 +2,46 @@
 
 var app = (function(document, $, Handlebars) {
 	var docElem = document.documentElement,
+        _map = null,
         _state = {
             openWindow: null,
-            currMarker: null
+            currMarker: null,
+            points: []
+        },
+        _getPoints = function() {
+            // get the latest points dataset and redraw
+            $.getJSON('getPoints.php', function(data) {
+                _state.points = data;
+                _drawPoints();
+            });
+        },
+        _drawPoints = function() {
+            // Add all of the points to the map
+            for (var i=0; i<_state.points.length; i++) {
+
+                // Create a new point
+                var mark = new google.maps.Marker({
+                    icon: '/assets/images/' + ((_state.points[i].currUser) ? 'green' : 'red') + '_dot.png',
+                    position: new google.maps.LatLng(_state.points[i].location[0], _state.points[i].location[1]),
+                    map: _map,
+                    title: _state.points[i].name
+                });
+
+                // bind the events to the points
+                google.maps.event.addListener(mark, 'click', function() {
+                    // Clean up the map if needed
+                    if (_state.openWindow) _state.openWindow.close();
+                    if (_state.currMarker) _state.currMarker.setMap(null);
+
+                    // Create and open a new info window to display the points picture
+                    _state.openWindow = new google.maps.InfoWindow({
+                        content: pinTemplate(_state.points[i])
+                    });
+
+                    _state.openWindow.open(_map, this);
+                });
+            }
+
         },
 		_userAgentInit = function() {
 			docElem.setAttribute('data-useragent', navigator.userAgent);
@@ -12,15 +49,6 @@ var app = (function(document, $, Handlebars) {
         _initializeMap = function() {
             var nearbyTemplate = Handlebars.compile($('#nearby-template').html()),
                 pinTemplate = Handlebars.compile($('#pin-template').html()),
-                points = [
-                    {
-                        name: 'A super cool spot',
-                        mid: '5df6ae72b9',
-                        currUser: false,
-                        location: [32.7150,-117.1625],
-                        imagePath: 'assets/images/sandiego7.jpg'
-                    }
-                ],
                 nearbyData = {
                     featuredImage: {
                         name: 'Featured Image', path: 'assets/images/sandiego1.jpg'
@@ -117,45 +145,20 @@ var app = (function(document, $, Handlebars) {
                 _state.openWindow.open(map, _state.currMarker);
             });
 
-            // Add all of the points to the map
-            for (var i=0; i<points.length; i++) {
-                // Create a new point
-                var mark = new google.maps.Marker({
-                    icon: '/assets/images/' + ((points[i].currUser) ? 'green' : 'red') + '_dot.png',
-                    position: new google.maps.LatLng(points[i].location[0], points[i].location[1]),
-                    map: map,
-                    title: points[i].name
-                });
-
-                if (_state.openWindow) _state.openWindow.close();
-                if (_state.currMarker) _state.currMarker.setMap(null);
-
-                google.maps.event.addListener(mark, 'click', function() {
-
-                    // Create and open a new info window to display the points picture
-                    _state.openWindow = new google.maps.InfoWindow({
-                        content: pinTemplate(points[i])
-                    });
-
-                    _state.openWindow.open(map, this);
-                });
-            }
+            return map;
         },
         _init = function() {
             $(document).foundation();
-            // needed to use joyride
-            // doc: http://foundation.zurb.com/docs/components/joyride.html
-
-            $(document).on('click', '#start-jr', function () {
-                $(document).foundation('joyride', 'start');
-            });
 
             $(document).on('click', '#close-form', function () {
                 $(document).foundation('reveal', 'close');
             });
 
             _userAgentInit();
-            _initializeMap();
+
+            _map = _initializeMap();
+            // Initialize the points on page load
+            _getPoints();
         };
 	return {
 		init: _init,

@@ -1,0 +1,19 @@
+{% extends 'base.twig' %}
+
+{% block body %}
+{# Breadcrumb section #}
+<ul class="breadcrumbs">
+  <li><a href="/home.php">Home</a></li>
+  <li class="current">Login</li>
+</ul>
+
+<div class="container">
+    <div data-alert class="alert-box success radius">
+        You have been successfully logged out.
+    </div>
+
+    <p>
+        Please come back soon.
+    </p>
+</div>
+{% endblock %}
