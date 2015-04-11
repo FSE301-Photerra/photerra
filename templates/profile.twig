@@ -121,8 +121,8 @@
             <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-4">
                 {% for photo in photos %}
                 <li>
-                    <a class="th" href="viewPhoto.php?id={{ photo.pid }}">
-                        <img src="{{ photo.path }}">
+                    <a class="th" href="viewPhoto.php?id={{ photo.id }}">
+                        <img src="/pictures/{{ photo.filename }}">
                     </a>
                 </li>
                 {% endfor %}

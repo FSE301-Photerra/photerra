@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../db.php';
 require_once __DIR__ . '/../components/utilities.php';
 
-use \Components\Utilties as utils;
+use \Components\Utilities as utils;
 
 class Photo {
     public $id;         // Unique id

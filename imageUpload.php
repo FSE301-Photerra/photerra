@@ -16,9 +16,8 @@ auth\requireLogin();
 $photo = new photos\Photo();
 $photo->uid = $_SESSION['uid'];
 $photo->lat = $_POST['lat'];
-$photo->lat = $_POST['lat'];
+$photo->lng = $_POST['lng'];
 $photo->title = $_POST['imageName'];
-$photo->filename = substr(str_shuffle(MD5(microtime())), 0, 10);    // Generate random filename
 
 // Attempt to upload the file
 $uploadStatus = $photo->upload('fileToUpload');

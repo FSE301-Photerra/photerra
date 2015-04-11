@@ -115,9 +115,11 @@ class User {
                               WHERE id = %u",
                               $this->username, $this->firstname, $this->lastname, $this->email, $this->id);
         } else {
-            $query = sprintf("INSERT INTO Users (username, password, fname, lname, email)
-                              VALUES ('%s', '%s', '%s', '%s', '%s')",
+            // The nulls are a trick to insert the default timestamp into both columns
+            $query = sprintf("INSERT INTO Users (username, password, fname, lname, email, createdOn, updatedOn)
+                              VALUES ('%s', '%s', '%s', '%s', '%s', NULL, NULL)",
                               $this->username, $this->password, $this->firstname, $this->lastname, $this->email);
+
         }
 
         $conn = \DB\getConnection();

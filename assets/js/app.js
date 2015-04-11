@@ -141,6 +141,10 @@ var app = (function(document, $, Handlebars) {
                 _state.openWindow = new google.maps.InfoWindow({
                     content: contentString
                 })
+
+                // Update the lat lng in the upload form
+                $('input[name=lat]').val(_state.currMarker.getPosition().lat());
+                $('input[name=lng]').val(_state.currMarker.getPosition().lng());
                 
                 _state.openWindow.open(map, _state.currMarker);
             });
