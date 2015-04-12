@@ -72,17 +72,11 @@ class Photo {
 class Point {
     public $name;
     public $uid;
-    public $imagePath;
+    public $path;
+    public $lat;
+    public $lng;
+    public $isPremium = FALSE;
     public $currUser = FALSE;
-    public $location = array();
-
-    function __construct($name, $uid, $currUser, $location, $imagePath) {
-        $this->name = $name;
-        $this->uid = $uid;
-        $this->currUser = $currUser;
-        $this->location = $location;
-        $this->imagePath = $imagePath;
-    }
 }
 
 /**

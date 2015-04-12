@@ -27,9 +27,12 @@ function requireNoLogin($redirect) {
  * Requires that the user be logged in to access the page
  */
 function requireLogin() {
+    global $ROOT;
+
     session_start();
     if (!$_SESSION['loggedIn']) {
         header("HTTP/1.1 401 Unauthorized");
+        include $ROOT.'/login.php';
         exit;
     }
 }

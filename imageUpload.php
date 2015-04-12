@@ -35,7 +35,7 @@ if ($currUser->canUploadPhoto()) {
 
 // If they can't then take them to the payment page
 } else {
-    $redirect = '/makePayment.php';
+    $redirect = '/makePayment.php?limit';
 }
 
 header("Location: " . $redirect);

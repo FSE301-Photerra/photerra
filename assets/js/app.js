@@ -22,7 +22,7 @@ var app = (function(document, $, Handlebars) {
                 // Create a new point
                 var mark = new google.maps.Marker({
                     icon: '/assets/images/' + ((_state.points[i].currUser) ? 'green' : 'red') + '_dot.png',
-                    position: new google.maps.LatLng(_state.points[i].location[0], _state.points[i].location[1]),
+                    position: new google.maps.LatLng(_state.points[i].lat, _state.points[i].lng),
                     map: _map,
                     title: _state.points[i].name
                 });
@@ -43,26 +43,74 @@ var app = (function(document, $, Handlebars) {
             }
 
         },
+        _getNearbyPoints = function(p1) {
+            var clickPoint = new google.maps.Data.Point(p1),
+                nearbyData = {
+                    featuredImage: {},
+                    trendingImages: [],
+                    images: []
+                },
+                nearbyPoints = [],
+                closestPremium = {},
+                rad = function(x) {
+                  return x * Math.PI / 180;
+                };
+
+            // TODO: optimize this algorithm (closest pair?)
+
+            for (var i = 0; i < _state.points.length; i++) {
+              var p2 = _state.points[i];
+              console.log(p2);
+              var R = 6378137; // Earth’s mean radius in meter
+              console.log(R);
+              var dLat = rad(p2.lat - p1.lat());
+              console.log(dLat);
+              var dLong = rad(p2.lng - p1.lng());
+              console.log(dLong);
+              var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(rad(p1.lat())) * Math.cos(rad(p2.lat)) *
+                Math.sin(dLong / 2) * Math.sin(dLong / 2);
+              console.log(a);
+              var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+              console.log(c);
+              var d = R * c;
+              console.log(d);
+
+              nearbyPoints.push({point: p2, distance: d});
+            }
+            
+            // Sort the points
+            nearbyPoints.sort(function(a, b) {
+                return a.distance - b.distance;
+            });
+
+            var imageCount = 0,
+                featuredSet = false;
+            for (var i = 0; i < nearbyPoints.length; i++) {
+                if (!featuredSet && nearbyPoints[i].point.isPremium) {
+                    nearbyData.featuredImage = nearbyPoints[i].point;
+                    featuredSet = true;
+                    imageCount++;
+                } else if (imageCount < 2) {
+                    nearbyData.trendingImages.push(nearbyPoints[i].point);
+                    imageCount++;
+                } else {
+                    nearbyData.images.push(nearbyPoints[i].point);
+                    imageCount++;
+                }
+
+                if (imageCount == 6) break;
+            }
+
+            return nearbyData;
+
+        },
 		_userAgentInit = function() {
 			docElem.setAttribute('data-useragent', navigator.userAgent);
 		},
         _initializeMap = function() {
             var nearbyTemplate = Handlebars.compile($('#nearby-template').html()),
-                pinTemplate = Handlebars.compile($('#pin-template').html()),
-                nearbyData = {
-                    featuredImage: {
-                        name: 'Featured Image', path: 'assets/images/sandiego1.jpg'
-                    },
-                    trendingImages: [
-                        {name: 'Trending Image 1', path: 'assets/images/sandiego2.jpg'},
-                        {name: 'Trending Image 2', path: 'assets/images/sandiego3.jpg'}
-                    ],
-                    images: [
-                        {name: 'Image 1', path: 'assets/images/sandiego4.jpg'},
-                        {name: 'Image 2', path: 'assets/images/sandiego5.jpg'},
-                        {name: 'Image 3', path: 'assets/images/sandiego6.jpg'},
-                    ]
-                };
+                pinTemplate = Handlebars.compile($('#pin-template').html());
 
             //Set map options
             var mapOptions = {
@@ -121,8 +169,6 @@ var app = (function(document, $, Handlebars) {
             map.setMapTypeId('map_style');
 
             google.maps.event.addListener(map, 'click', function(event){
-                var contentString = nearbyTemplate(nearbyData);
-
                 // clean up if needed
                 if (_state.openWindow) _state.openWindow.close();
                 if (_state.currMarker) _state.currMarker.setMap(null);
@@ -136,6 +182,10 @@ var app = (function(document, $, Handlebars) {
 
                 // Move the marker to the center of the map
                 map.panTo(_state.currMarker.getPosition());
+
+                // Get the nearbyPoints
+
+                var contentString = nearbyTemplate(_getNearbyPoints(_state.currMarker.position));
 
                 // Create and open a new info window
                 _state.openWindow = new google.maps.InfoWindow({

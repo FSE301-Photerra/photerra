@@ -1,0 +1,42 @@
+{% extends 'base.twig' %}
+
+{% block body %}
+{# Breadcrumb section #}
+<ul class="breadcrumbs">
+  <li><a href="/home.php">Home</a></li>
+  <li class="current">Make Payment</li>
+</ul>
+
+<div class="container make-payment">
+    <h1>Make a Payment</h1>
+
+    {% if hitLimit %}
+    <div class="alert-box radius alert">
+        Uh oh! It looks like you have reach you upload limit.
+        Look at the pricing options below to increase your limit and continue sharing
+        your best work.
+    </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="large-6 columns">
+            <ul class="pricing-table">
+              <li class="title">Standard Limit Boost</li>
+              <li class="price">$[enter price here]</li>
+              <li class="description">Increase your limit</li>
+              <li class="bullet-item">5 more uploads</li>
+              <li class="cta-button"><a class="button" href="#">Buy Now</a></li>
+            </ul>
+        </div>
+        <div class="large-6 columns">
+            <ul class="pricing-table">
+              <li class="title">Premium Photo</li>
+              <li class="price">$[enter price here]</li>
+              <li class="description">Give one of your images the prestige it deserves</li>
+              <li class="bullet-item">Some details</li>
+              <li class="cta-button"><a class="button" href="#">Buy Now</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
