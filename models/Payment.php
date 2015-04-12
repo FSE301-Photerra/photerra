@@ -49,6 +49,25 @@ function getTypeIdByCode($code) {
 }
 
 /**
+ * Gets a payment type by the code. If there is no type that matches the code
+ * provided, a zero is returned
+ * @param string code
+ * @return int
+ */
+function getTypeByCode($code) {
+    // Run the query and get the user details
+    $query = sprintf("SELECT *
+                      FROM PaymentTypes
+                      WHERE code = '%s'",
+                     $code);
+
+    $conn = \DB\getConnection();
+    $result = $conn->query($query);
+
+    return $result;
+}
+
+/**
  * Gets the payment history of the given user
  * @param int uid
  * @return mixed
