@@ -1,0 +1,20 @@
+{% extends 'base.twig' %}
+
+{% block nav %}{{ include('_simpleNav.twig') }}{% endblock %}
+
+{% block body %}
+    {# Breadcrumb section #}
+    <ul class="breadcrumbs">
+      <li><a href="/home.php">Home</a></li>
+      <li class="current">Contact Us</li>
+    </ul>
+
+    <div class="container">
+        <h1>Contact Us</h1>
+
+        <p>
+            Please send any comments, issues, or bugs to:<br>
+            <a href="mailto:contact-us@photerras.com">contact-us@photerras.com</a>
+        </p>
+    </div>
+{% endblock %}

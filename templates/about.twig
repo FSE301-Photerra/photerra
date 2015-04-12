@@ -1,0 +1,62 @@
+{% extends 'base.twig' %}
+
+{% block nav %}{{ include('_simpleNav.twig') }}{% endblock %}
+
+{% block body %}
+{# Breadcrumb section #}
+<ul class="breadcrumbs">
+    <li><a href="/home.php">Home</a></li>
+    <li class="current">About Us</li>
+</ul>
+
+<div class="container">
+    <h1>What is Photerras?</h1>
+
+    <div class="row">
+        <div class="columns large-12">
+            <h2>Our Story</h2>
+            <p>
+            The modern world loves taking pictures. Facebook, Instagram, Snapchat, Imagur, Flickr - all flooded with a wide variety of good and bad photos. Amidst the barrage of selfies, group selfies, food shots, and cat pictures, it is hard for truly artistic photos to stand out.
+            </p>
+
+            <p>
+            We saw this problem and wanted to do something about it. We appreciate photography, not for what it has become, but for what it once was: art. We have put together a site directed at those with a camera that doesn’t also make phone calls.
+            </p>
+
+            <p>
+            Photerras is a site where users can upload their best works. Each picture is tagged to a location on the map where it was taken. Visitors to the site can browse through the photos, commenting, liking, and enjoying.
+            </p>
+
+            <p>
+            Photerras gives amateur photographers the exposure they want and reminds everyone that there is art in photography.
+            </p>
+
+            <p>
+            Photerras.com was started by Reese Pratt, Andrew Herzberg, Kurosh Keyvani, and Weston Neal as a project for an ASU entrepreneurship class.
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="columns large-12">
+            <h2>Frequently Asked Questions</h2>
+
+            <dl>
+                <dt>How do I create a profile?</dt>
+                <dd>On the main page, click “Login” and then “Sign Up”</dd>
+
+                <dt> How do I upload a photo?  <dt>
+                <dd> Make sure you are logged in. Click on the map where you would like to upload your photo. In the balloon that pops up, click “Add Image”. Choose the photo from your computer.  </dd>
+
+                <dt> How big can my photos be?  <dt>
+                <dd> Photos are limited to 8 mb.  </dd>
+
+                <dt> How do I get my photo to be one of the big photos that pops up?  <dt>
+                <dd>
+                The largest photo in the balloon is the highest rated photo in the area.
+                By paying for a premium listing, you can have your photo displayed as one of the two larger photos in the balloon.  
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -3,7 +3,7 @@
         <!-- Title Area -->
         <li class="name">
             <h1>
-                <a href="#" data-reveal-id="about-modal">
+                <a href="/home.php">
                     PHOTERRAS
                 </a>
             </h1>
@@ -13,19 +13,6 @@
     <section class="top-bar-section">
         <!-- Right Nav Section -->
         <ul class="right">
-            <li class="divider"></li>
-            <li>
-                <a href="#" data-reveal-id="contact-modal">Contact Us</a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <a href="#" data-reveal-id="about-modal">About Us</a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <a href="#" data-reveal-id="faq-modal">FAQ</a>
-            </li>
-            <li class="divider"></li>
             {% if session.loggedIn %}
             <li class="active">
                 <a href="userProfile.php"><i class="user-icon"></i> Profile</a>
@@ -36,7 +23,7 @@
             </li>
             {% else %}
             <li class="active">
-                <a href="#" data-reveal-id="login-modal"><i class="user-icon"></i> Login</a>
+                <a href="/login.php"><i class="user-icon"></i> Login</a>
             </li>
             {% endif %}
         </ul>

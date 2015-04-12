@@ -1,0 +1,26 @@
+<section class="footer">
+    <div class="icon-bar {% if session.loggedIn %}five-up{% else %}three-up{% endif %}">
+        <a class="item" href="/home.php">
+            <i class="fa fa-home fa-3x"></i>
+            <label>Home</label>
+        </a>
+        <a class="item" href="/contact.php">
+            <i class="fa fa-envelope-o fa-3x"></i>
+            <label>Contact Us</label>
+        </a>
+        <a class="item" href="/about.php">
+            <i class="fa fa-info-circle fa-3x"></i>
+            <label>Info</label>
+        </a>
+        {% if session.loggedIn %}
+        <a class="item" href="makePayment.php">
+            <i class="fa fa-paypal fa-3x"></i>
+            <label>Payments</label>
+        </a>
+        <a class="item" href="userProfile.php">
+            <i class="fa fa-user fa-3x"></i>
+            <label>Profile</label>
+        </a>
+        {% endif %}
+    </div>
+</section>

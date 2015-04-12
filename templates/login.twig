@@ -1,28 +1,30 @@
 {% extends 'base.twig' %}
 
+{% block nav %}{{ include('_simpleNav.twig') }}{% endblock %}
+
 {% block body %}
-    <div class="container">
-        {% if error %}
-            <div data-alert class="alert-box alert radius">
-                Unable to login with the provided credentials.
-            </div>
-        {% elseif success %}
-            <div data-alert class="alert-box success radius">
-                Successfully created an account.
-            </div>
-        {% endif %}
-
-        {# Breadcrumb section #}
-        <ul class="breadcrumbs">
-          <li><a href="/home.php">Home</a></li>
-          <li class="current">Login</li>
-        </ul>
-
-        <div data-alert class="alert-box radius">
-            Please use your credentials to log in.
-            If you don't have an account then click on the sign up button.
+    {% if error %}
+        <div data-alert class="alert-box alert radius">
+            Unable to login with the provided credentials.
         </div>
+    {% elseif success %}
+        <div data-alert class="alert-box success radius">
+            Successfully created an account.
+        </div>
+    {% endif %}
 
+    {# Breadcrumb section #}
+    <ul class="breadcrumbs">
+      <li><a href="/home.php">Home</a></li>
+      <li class="current">Login</li>
+    </ul>
+
+    <div data-alert class="alert-box radius">
+        Please use your credentials to log in.
+        If you don't have an account then click on the sign up button.
+    </div>
+
+    <div class="container">
         <form method="POST" action="check.php">
             <div class="row">
                 <div class="large-12 columns">

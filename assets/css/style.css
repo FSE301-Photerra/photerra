@@ -7748,3 +7748,7 @@ html, body, .map-element {
     float: right; }
 .make-payment .pricing-table .cta-button {
     padding: 1.25rem 1.25rem; }
+.container {
+    min-height: 600px; }
+.footer .icon-bar .item {
+    height: 130px; }
