@@ -53,7 +53,10 @@
 
         {# Payment section #}
         <section class="payments">
-            <h2>Payments</h2>
+            <h2>
+                Payments
+                <span><a href="makePayment.php">Make Payment</a></span>
+            </h2>
             {% if payments|length > 0 %}
             <div class="row">
                 <table>
@@ -80,10 +83,10 @@
                 <div class="panel callout radius">
                     <p>
                         You haven't made any payments yet. All new users are given 10 free uploads.
-                        After that for the price of [price here] you get 5 more uploads.
+                        After that for the price of $1.25 you get 5 more uploads.
                     </p>
                     <p>
-                        Also your pictures can be given a premium status for just [price here].
+                        Also your pictures can be given a premium status for just $1.00.
                         This means that they will be given special treatment over all other nearby photos.
                         It is a great way to get your name out there and show off your best work.
                     </p>

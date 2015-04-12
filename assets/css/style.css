@@ -7743,3 +7743,6 @@ html, body, .map-element {
    margin: 0 auto; }
 .payments table {
     width: 100%; }
+.payments h2 > span {
+    font-size: medium;
+    float: right; }

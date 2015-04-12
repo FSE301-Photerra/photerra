@@ -1,6 +1,5 @@
 {
     "require": {
-        "twig/twig": "~1.0",
-        "james-heinrich/phpthumb": "~1.7"
+        "twig/twig": "~1.0"
     }
 }
