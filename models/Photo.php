@@ -39,23 +39,33 @@ class Photo {
      * Saves or creates a photo in the database
      */
     function save() {
+        $conn = \DB\getConnection();
+
         // If this is a photo with an id update otherwise insert
         if (isset($this->id)) {
             $query = sprintf("UPDATE Photos
-                              SET lat = '%s',
-                                  lng = '%s',
+                              SET lat = %f
+                                  lng = %f
                                   title = '%s',
                                   filename = '%s',
                                   isPremium = %d
                               WHERE uid = %u",
-                              $this->lat, $this->lng, $this->title, $this->filename, $this->isPremium, $this->uid);
+                              $this->lat,
+                              $this->lng,
+                              $conn->escape_string($this->title),
+                              $conn->escape_string($this->filename),
+                              $this->isPremium,
+                              $this->uid);
         } else {
             $query = sprintf("INSERT INTO Photos (uid, lat, lng, title, filename)
-                              VALUES (%u, '%s', '%s', '%s', '%s')",
-                              $this->uid, $this->lat, $this->lng, $this->title, $this->filename);
+                              VALUES (%u, %f, %f, '%s', '%s')",
+                              $this->uid,
+                              $this->lat,
+                              $this->lng,
+                              $conn->escape_string($this->title),
+                              $conn->escape_string($this->filename));
         }
 
-        $conn = \DB\getConnection();
         $result = $conn->query($query);
 
         // If this is a newly created photo, then update the id with the

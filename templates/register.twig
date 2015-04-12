@@ -3,47 +3,47 @@
 {% block nav %}{{ include('_simpleNav.twig') }}{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <!-- Registration form -->
-        <div data-alert class="alert-box radius">
-            Please provide the following information to create an account.
-        </div>
+{# Breadcrumb section #}
+<ul class="breadcrumbs">
+    <li><a href="/home.php">Home</a></li>
+    <li class="current">User Registration</li>
+</ul>
 
-        {# Breadcrumb section #}
-        <ul class="breadcrumbs">
-          <li><a href="/home.php">Home</a></li>
-          <li class="current">User Registration</li>
-        </ul>
+<!-- Registration form -->
+<div data-alert class="alert-box radius">
+    Please provide the following information to create an account.
+</div>
+<div class="container">
 
-        <form method="POST" action="registration_execute.php">
-            <div class="row">
-                <div class="large-12 columns">
-                  <label>
+    <form method="POST" action="registration_execute.php">
+        <div class="row">
+            <div class="large-12 columns">
+                <label>
                     First Name
                     <input type="text" name="fname">
-                  </label>
-                </div>
+                </label>
             </div>
+        </div>
 
-            <div class="row">
-                <div class="large-12 columns">
-                  <label>
+        <div class="row">
+            <div class="large-12 columns">
+                <label>
                     Last Name
                     <input type="text" name="lname">
-                  </label>
-                </div>
+                </label>
             </div>
+        </div>
 
-            <div class="row">
-                <div class="large-12 columns">
-                  <label>
+        <div class="row">
+            <div class="large-12 columns">
+                <label>
                     Email
                     <input type="text" name="email">
-                  </label>
-                </div>
+                </label>
             </div>
+        </div>
 
-            <!--
+        <!--
             <div class="row">
                 <div class="large-12 columns">
                   <label>
@@ -54,25 +54,25 @@
             </div>
             -->
 
-            <div class="row">
-                <div class="large-12 columns">
-                  <label>
+        <div class="row">
+            <div class="large-12 columns">
+                <label>
                     Username
                     <input type="text" name="username">
-                  </label>
-                </div>
+                </label>
             </div>
+        </div>
 
-            <div class="row">
-                <div class="large-12 columns">
-                  <label>
+        <div class="row">
+            <div class="large-12 columns">
+                <label>
                     Password
                     <input type="password" name="password">
-                  </label>
-                </div>
+                </label>
             </div>
+        </div>
 
-            <!--
+        <!--
             <div class="row">
                 <div class="large-12 columns">
                   <label>
@@ -83,11 +83,11 @@
             </div>
             -->
 
-            <div class="row">
-                <ul class="button-group">
-                    <li><input type="submit" class="button success" value="Register"></li>
-                </ul>
-            </div>
-        </form>
-    </div>
+        <div class="row">
+            <ul class="button-group">
+                <li><input type="submit" class="button success" value="Register"></li>
+            </ul>
+        </div>
+    </form>
+</div>
 {% endblock %}

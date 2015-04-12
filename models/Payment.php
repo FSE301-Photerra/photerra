@@ -15,7 +15,7 @@ class Payment {
     function save() {
         $query = sprintf("INSERT INTO Payments (uid, typeid)
                           VALUES (%u, %u)",
-                         $this->uid, $this-typeid);
+                         $this->uid, $this->typeid);
 
         $conn = \DB\getConnection();
         $result = $conn->query($query);
@@ -30,14 +30,14 @@ class Payment {
  */
 function getTypeIdByCode($code) {
     $id = 0;
+    $conn = \DB\getConnection();
 
     // Run the query and get the user details
     $query = sprintf("SELECT id
                       FROM PaymentTypes
                       WHERE code = '%s'",
-                     $code);
+                     $conn->escape_string($code));
 
-    $conn = \DB\getConnection();
     $result = $conn->query($query);
 
     if ($result->num_rows) {
@@ -55,13 +55,14 @@ function getTypeIdByCode($code) {
  * @return int
  */
 function getTypeByCode($code) {
+    $conn = \DB\getConnection();
+
     // Run the query and get the user details
     $query = sprintf("SELECT *
                       FROM PaymentTypes
                       WHERE code = '%s'",
-                     $code);
+                     $conn->escape_string($code));
 
-    $conn = \DB\getConnection();
     $result = $conn->query($query);
 
     return $result;

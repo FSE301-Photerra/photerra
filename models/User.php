@@ -102,6 +102,8 @@ class User {
      * Saves or creates a user in the database
      */
     function save() {
+        $conn = \DB\getConnection();
+
         // If this is a user with an id update otherwise insert
         if (isset($this->id)) {
             $query = sprintf("UPDATE Users
@@ -110,16 +112,24 @@ class User {
                                   lastname = '%s',
                                   email = '%s'
                               WHERE id = %u",
-                              $this->username, $this->firstname, $this->lastname, $this->email, $this->id);
+                              $conn->escape_string($this->username),
+                              $conn->escape_string($this->firstname),
+                              $conn->escape_string($this->lastname),
+                              $conn->escape_string($this->email),
+                              $this->id);
         } else {
             // The nulls are a trick to insert the default timestamp into both columns
-            $query = sprintf("INSERT INTO Users (username, password, fname, lname, email, createdOn, updatedOn)
-                              VALUES ('%s', '%s', '%s', '%s', '%s', NULL, NULL)",
-                              $this->username, $this->password, $this->firstname, $this->lastname, $this->email);
+            $query = sprintf("INSERT INTO Users (username, password, firstname, lastname, email, salt)
+                              VALUES ('%s', '%s', '%s', '%s', '%s', '%s')",
+                              $conn->escape_string($this->username),
+                              $conn->escape_string($this->password),
+                              $conn->escape_string($this->firstname),
+                              $conn->escape_string($this->lastname),
+                              $conn->escape_string($this->email),
+                              '');
 
         }
 
-        $conn = \DB\getConnection();
         $result = $conn->query($query);
 
         // If this is a newly created user, then update the id with the
@@ -154,12 +164,13 @@ function getById($id) {
  * @return bool
  */
 function loginUser($username, $password) {
+    $conn = \DB\getConnection();
+
     // Run the query and get the user details
     $query = sprintf("SELECT * FROM Users WHERE username='%s' AND password='%s'",
-                     $username,
-                     $password);
+                     $conn->escape_string($username),
+                     $conn->escape_string($password));
 
-    $conn = \DB\getConnection();
     $result = $conn->query($query);
 
     if ($result->num_rows) {

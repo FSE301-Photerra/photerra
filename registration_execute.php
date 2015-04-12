@@ -1,6 +1,6 @@
 <?php
 $ROOT = __DIR__;
-require $ROOT.'models/User.php';
+require $ROOT.'/models/User.php';
 use \Models\User as users;
 
 $validInput = 1;
