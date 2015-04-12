@@ -16,15 +16,20 @@ var app = (function(document, $, Handlebars) {
             });
         },
         _drawPoints = function() {
+            var pinTemplate = Handlebars.compile($('#pin-template').html());
+
             // Add all of the points to the map
             for (var i=0; i<_state.points.length; i++) {
 
                 // Create a new point
+                // Note that I had to hack the object and pass it the path property even though it is not used by
+                // google maps. The closure scoping was giving my fits on the callback function for the click event.
                 var mark = new google.maps.Marker({
                     icon: '/assets/images/' + ((_state.points[i].currUser) ? 'green' : 'red') + '_dot.png',
                     position: new google.maps.LatLng(_state.points[i].lat, _state.points[i].lng),
                     map: _map,
-                    title: _state.points[i].name
+                    title: _state.points[i].name,
+                    path: _state.points[i].path
                 });
 
                 // bind the events to the points
@@ -35,7 +40,7 @@ var app = (function(document, $, Handlebars) {
 
                     // Create and open a new info window to display the points picture
                     _state.openWindow = new google.maps.InfoWindow({
-                        content: pinTemplate(_state.points[i])
+                        content: pinTemplate({name: this.title, path: this.path})
                     });
 
                     _state.openWindow.open(_map, this);
@@ -60,21 +65,14 @@ var app = (function(document, $, Handlebars) {
 
             for (var i = 0; i < _state.points.length; i++) {
               var p2 = _state.points[i];
-              console.log(p2);
               var R = 6378137; // Earth’s mean radius in meter
-              console.log(R);
               var dLat = rad(p2.lat - p1.lat());
-              console.log(dLat);
               var dLong = rad(p2.lng - p1.lng());
-              console.log(dLong);
               var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
                 Math.cos(rad(p1.lat())) * Math.cos(rad(p2.lat)) *
                 Math.sin(dLong / 2) * Math.sin(dLong / 2);
-              console.log(a);
               var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-              console.log(c);
               var d = R * c;
-              console.log(d);
 
               nearbyPoints.push({point: p2, distance: d});
             }
@@ -98,8 +96,6 @@ var app = (function(document, $, Handlebars) {
                     nearbyData.images.push(nearbyPoints[i].point);
                     imageCount++;
                 }
-
-                if (imageCount == 6) break;
             }
 
             return nearbyData;
@@ -109,8 +105,7 @@ var app = (function(document, $, Handlebars) {
 			docElem.setAttribute('data-useragent', navigator.userAgent);
 		},
         _initializeMap = function() {
-            var nearbyTemplate = Handlebars.compile($('#nearby-template').html()),
-                pinTemplate = Handlebars.compile($('#pin-template').html());
+            var nearbyTemplate = Handlebars.compile($('#nearby-template').html());
 
             //Set map options
             var mapOptions = {

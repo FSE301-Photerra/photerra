@@ -18,7 +18,7 @@ while($row = mysqli_fetch_assoc($qPhotos)) {
     $tmp_point->name = $row['title'];
     $tmp_point->uid = $row['uid'];
     $tmp_point->currUser = $row['uid'] === $currUser->id;
-    $tmp_point->isPremium = $row['isPremium'];
+    $tmp_point->isPremium = (bool) $row['isPremium'];
     $tmp_point->lat = $row['lat'];
     $tmp_point->lng = $row['lng'];
     $tmp_point->path = '/pictures/'.$row['filename'];
