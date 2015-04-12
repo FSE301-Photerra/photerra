@@ -1,2 +1,2 @@
-# photerra
-Source for our FSE301 project
+# Photerras
+Source for our FSE301 project.
