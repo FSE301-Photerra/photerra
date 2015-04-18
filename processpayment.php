@@ -43,9 +43,9 @@ try {
     $newPayment->save();
 
     // Make sure the payment was created successfully
-    if (!isset($newPayment->id)) {
-        throw new Exception("Error saving payment details");
-    }
+    //if (!isset($newPayment->id)) {
+      //  throw new Exception("Error saving payment details");
+    //}
 
     // Show the confirmation message
 } catch (Exception $e) {
