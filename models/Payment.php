@@ -21,7 +21,15 @@ class Payment {
                           VALUES (%u, %u, '%s', %f)",
                          $this->uid, $this->typeid, $conn->escape_string($this->token), $this->amount);
 
+    
+
         $result = $conn->query($query);
+
+        // If this is a newly created user, then update the id with the
+        // newly created one
+        if (!isset($this->id)) {
+            $this->id = $result->insert_id;
+        }
     }
 }
 

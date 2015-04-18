@@ -65,15 +65,17 @@
                     <thead>
                         <tr>
                             <th width="10%">ID</th>
-                            <th width="70%">Description</th>
+                            <th width="60%">Description</th>
+                            <th width="10%">Amount</th>
                             <th width="20%">Date</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for payment in payments %}
                         <tr>
-                            <td>{{ payment.id }}</td>
+                            <td>{{ payment.token }}</td>
                             <td>{{ payment.typeDesc }}</td>
+                            <td>${{ payment.amount|number_format(2, '.', ',') }}</td>
                             <td>{{ payment.createdOn|date("m/d/Y g:i a") }}</td>
                         </tr>
                         {% endfor %}

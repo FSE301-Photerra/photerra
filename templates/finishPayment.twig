@@ -1,0 +1,23 @@
+{% extends 'base.twig' %}
+
+{% block nav %}{{ include('_simpleNav.twig') }}{% endblock %}
+
+{% block body %}
+{# Breadcrumb section #}
+<ul class="breadcrumbs">
+  <li><a href="/home.php">Home</a></li>
+  <li class="current">Finish Payment</li>
+</ul>
+
+<div class="container">
+    {% if status %}
+    <div data-alert class="alert-box success radius">
+        Your payment has been processed successfully.
+    </div>
+    {% else %}
+    <div data-alert class="alert-box alert radius">
+        We're sorry, there was an issue processing your payment.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

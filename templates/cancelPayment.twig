@@ -1,0 +1,18 @@
+{% extends 'base.twig' %}
+
+{% block nav %}{{ include('_simpleNav.twig') }}{% endblock %}
+
+{% block body %}
+{# Breadcrumb section #}
+<ul class="breadcrumbs">
+  <li><a href="/home.php">Home</a></li>
+  <li class="current">Cancel Payment</li>
+</ul>
+
+<div class="container">
+    <div data-alert class="alert-box alert radius">
+        Your payment has been canceled
+    </div>
+</div>
+{% endblock %}
+

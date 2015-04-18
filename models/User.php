@@ -90,6 +90,8 @@ class User {
             $tmp_payment->uid = $row['uid'];
             $tmp_payment->typeId = $row['typeid'];
             $tmp_payment->typeDesc = $row['desc'];
+            $tmp_payment->token = $row['token'];
+            $tmp_payment->amount = $row['amount'];
             $tmp_payment->createdOn = $row['createdOn'];
 
             array_push($this->payments, $tmp_payment);
