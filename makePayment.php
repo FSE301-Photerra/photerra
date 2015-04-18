@@ -7,7 +7,7 @@ require $ROOT.'/components/auth.php';
 use \Models\User as users;
 use \Components\Auth as auth;
 
-// Do so checks to make sure they should be on this page
+// Do some checks to make sure they should be on this page
 auth\requireLogin();
 
 $currUser = users\getCurrentUser();

@@ -7,17 +7,20 @@ class Payment {
     public $uid;            // assign payment to this user
     public $typeid;
     public $typeDesc;
+    public $amount;
+    public $token;
     public $createdOn;
 
     /**
      * Saves a new payment
      */
     function save() {
-        $query = sprintf("INSERT INTO Payments (uid, typeid)
-                          VALUES (%u, %u)",
-                         $this->uid, $this->typeid);
-
         $conn = \DB\getConnection();
+
+        $query = sprintf("INSERT INTO Payments (uid, typeid, token, amount)
+                          VALUES (%u, %u, '%s', %f)",
+                         $this->uid, $this->typeid, $conn->escape_string($this->token), $this->amount);
+
         $result = $conn->query($query);
     }
 }
@@ -78,6 +81,8 @@ function getByUser($uid) {
     $query = sprintf("SELECT p.id,
                              p.uid,
                              p.typeid,
+                             p.amount,
+                             p.token,
                              p.createdOn,
                              pt.desc
                       FROM Payments p
