@@ -67,6 +67,7 @@ class User {
                 $tmp_photo->lng = $row['lng'];
                 $tmp_photo->title = $row['title'];
                 $tmp_photo->filename = $row['filename'];
+                $tmp_photo->isPremium = $row['isPremium'];
 
                 array_push($this->photos, $tmp_photo);
             }
@@ -129,7 +130,6 @@ class User {
                               $conn->escape_string($this->lastname),
                               $conn->escape_string($this->email),
                               '');
-
         }
 
         $result = $conn->query($query);

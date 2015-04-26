@@ -123,12 +123,15 @@
 
     {# Photos section #}
     <section class="photos">
-        <h2>Photos</h2>
+        <h2>
+            Photos
+            <span><a href="setPremiumPhotos.php">Set Premium Photos</a></span>
+        </h2>
         {% if photos|length > 0 %}
             <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-4 clearing-thumbs" data-clearing>
                 {% for photo in photos %}
                 <li>
-                    <a class="th" href="/pictures/{{ photo.filename }}">
+                    <a class="th {% if photo.isPremium %}premium{% endif %}" href="/pictures/{{ photo.filename }}">
                         <img src="/pictures/{{ photo.filename }}" data-caption="{{ photo.title }}">
                     </a>
                 </li>

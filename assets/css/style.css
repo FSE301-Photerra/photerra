@@ -7743,7 +7743,7 @@ html, body, .map-element {
    margin: 0 auto; }
 .payments table {
     width: 100%; }
-.payments h2 > span {
+h2 > span {
     font-size: medium;
     float: right; }
 .make-payment .pricing-table .cta-button {
@@ -7752,3 +7752,17 @@ html, body, .map-element {
     min-height: 600px; }
 .footer .icon-bar .item {
     height: 130px; }
+#bodyContent {
+    padding: 1em; }
+.th.premium {
+    border-color: #579b8a; }
+.th input[type=checkbox] {
+    display: none;
+}
+input[type=checkbox]:checked + .is-default {
+    display: block;
+}
+.is-default {
+    display: none;
+    padding: .5em;
+}

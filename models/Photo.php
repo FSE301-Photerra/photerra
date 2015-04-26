@@ -154,3 +154,24 @@ function getAll() {
 
     return $result;
 }
+
+/**
+ * Sets the photos as premium for this user
+ * @param int $uid
+ * @param string $photos
+ */
+function setPremium($uid, $photos) {
+    $conn = \DB\getConnection();
+
+    // Run the query and get the user details
+    $query = sprintf("UPDATE Photos SET isPremium = 0 WHERE uid = %d",
+                      $uid);
+
+    $result = $conn->query($query);
+
+    $query = sprintf("UPDATE Photos SET isPremium = 1 WHERE uid = %d AND id IN (%s)",
+                      $uid,
+                      $conn->escape_string($photos));
+
+    $result = $conn->query($query);
+}

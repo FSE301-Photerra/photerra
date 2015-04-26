@@ -74,7 +74,9 @@ var app = (function(document, $, Handlebars) {
               var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
               var d = R * c;
 
-              nearbyPoints.push({point: p2, distance: d});
+              if (d < 250000) {
+                  nearbyPoints.push({point: p2, distance: d});
+              }
             }
             
             // Sort the points
@@ -179,7 +181,6 @@ var app = (function(document, $, Handlebars) {
                 map.panTo(_state.currMarker.getPosition());
 
                 // Get the nearbyPoints
-
                 var contentString = nearbyTemplate(_getNearbyPoints(_state.currMarker.position));
 
                 // Create and open a new info window

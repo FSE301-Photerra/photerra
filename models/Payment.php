@@ -131,3 +131,30 @@ function getCountByUser($uid) {
 
     return $count;
 }
+
+/**
+ * Gets a count of the number of payments for premium photos
+ * @param int uid
+ * @return int
+ */
+function getPPCountByUser($uid) {
+    $count = 0;
+
+    // Run the query and get the user details
+    $query = sprintf("SELECT COUNT(*) AS PaymentCount
+                      FROM Payments
+                      WHERE uid=%u
+                        AND typeid = (
+                            SELECT id
+                            FROM PaymentTypes
+                            WHERE code = 'pp'
+                        )",
+                     $uid);
+
+    $conn = \DB\getConnection();
+    $result = $conn->query($query);
+    $row = mysqli_fetch_assoc($result);
+    $count = $row['PaymentCount'];
+
+    return $count;
+}
