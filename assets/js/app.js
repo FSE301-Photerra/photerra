@@ -51,7 +51,9 @@ var app = (function(document, $, Handlebars) {
         _getNearbyPoints = function(p1) {
             var clickPoint = new google.maps.Data.Point(p1),
                 nearbyData = {
-                    featuredImage: {},
+                    featuredImage: {
+                        path: "/assets/images/default.png"
+                    },
                     trendingImages: [],
                     images: []
                 },
@@ -60,9 +62,8 @@ var app = (function(document, $, Handlebars) {
                 rad = function(x) {
                   return x * Math.PI / 180;
                 };
-
+            
             // TODO: optimize this algorithm (closest pair?)
-
             for (var i = 0; i < _state.points.length; i++) {
               var p2 = _state.points[i];
               var R = 6378137; // Earth’s mean radius in meter
@@ -98,6 +99,18 @@ var app = (function(document, $, Handlebars) {
                     nearbyData.images.push(nearbyPoints[i].point);
                     imageCount++;
                 }
+            }
+
+            for (var i = nearbyData.trendingImages.length; i < 2; i++) {
+                nearbyData.trendingImages[i] = {
+                    path: "/assets/images/default2.png"
+                };
+            }
+            
+            for (var i = nearbyData.images.length; i < 3; i++) {
+                nearbyData.images[i] = {
+                    path: "/assets/images/default2.png"
+                };
             }
 
             return nearbyData;
